@@ -2,11 +2,14 @@ package com.example.EmployeeProject.service;
 
 import com.example.EmployeeProject.service.impl.Employee;
 
-import java.util.List;
+import java.util.Map;
 
 public interface EmployeeService {
-    public Employee addEmployee(String surname, String name);
-    public Employee removeEmployee(String surname, String name);
-    public Employee findEmployee(String surname, String name);
-    public List<Employee> getEmployeeList();
+    Employee addEmployee(String surname, String name);
+
+    Employee removeEmployee(String surname, String name);
+
+    Employee findEmployee(String surname, String name);
+
+    Map<String, Employee> getEmployeeList();
 }
