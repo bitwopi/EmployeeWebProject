@@ -12,27 +12,29 @@ import java.util.Map;
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
     private final Map<String, Employee> employeeList;
-    private int max_size;
+    private int maxSize;
 
     public EmployeeServiceImpl() {
-        this.employeeList = new HashMap<>();
-        max_size = 10;
+        this.employeeList = new HashMap<>(Map.of("UsimMatvey", new Employee("Usim", "Matvey", 100.0, 2),
+                "GramoteevEvgeniy", new Employee("Gramoteev", "Evgeniy", 1000.0, 2),
+                "BelogayDima", new Employee("Belogay", "Dima", 200.0, 1)));
+        maxSize = 10;
     }
 
     public EmployeeServiceImpl(Map<String, Employee> employeeList, int max_size) {
         if (employeeList != null) {
             this.employeeList = employeeList;
-            this.max_size = max_size;
+            this.maxSize = max_size;
         } else
             this.employeeList = new HashMap<>();
     }
 
-    public int getMax_size() {
-        return max_size;
+    public int getMaxSize() {
+        return maxSize;
     }
 
-    public void setMax_size(int max_size) {
-        this.max_size = max_size;
+    public void setMaxSize(int maxSize) {
+        this.maxSize = maxSize;
     }
 
     public Map<String, Employee> getEmployeeList() {
@@ -41,7 +43,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee addEmployee(String surname, String name) {
-        if (this.employeeList.size() == this.max_size) {
+        if (this.employeeList.size() == this.maxSize) {
             throw new EmployeeStorageIsFullException("You've reached the maximum storage size");
         }
         try {
@@ -54,6 +56,15 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    public Employee addEmployee(String surname, String name, Double salary, Integer department) {
+        Employee employee = this.addEmployee(surname, name);
+        employee.setSalary(salary);
+        employee.setDepartment(department);
+        return employee;
+    }
+
+
+    @Override
     public Employee removeEmployee(String surname, String name) {
         Employee employee = findEmployee(surname, name);
         this.employeeList.remove(surname + name);
@@ -62,7 +73,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee findEmployee(String surname, String name) {
-        Employee result = employeeList.get(surname + name);
+        Employee result = this.employeeList.get(surname + name);
         if (result == null)
             throw new EmployeeNotFoundException("This employee is not exist");
         return result;
