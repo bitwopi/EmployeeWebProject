@@ -4,9 +4,7 @@ import com.example.EmployeeProject.service.DepartmentService;
 import com.example.EmployeeProject.service.EmployeeService;
 import org.springframework.stereotype.Service;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -39,9 +37,8 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public Map<Integer, Employee> getAllEmployees() {
+    public Map<Integer, List<Employee>> getAllEmployees() {
 
-        return this.employeeService.getEmployeeList().values().stream()
-                .collect(Collectors.toMap(Employee::getDepartment, employee -> employee));
+        return null;
     }
 }
