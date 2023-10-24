@@ -15,7 +15,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     private int maxSize;
 
     public EmployeeServiceImpl() {
-        this.employeeList = new HashMap<>(Map.of("UsimMatvey", new Employee("Usim", "Matvey", 100.0, 2),
+        this.employeeList = new HashMap<>(
+                Map.of("UsimMatvey", new Employee("Usim", "Matvey", 100.0, 2),
                 "GramoteevEvgeniy", new Employee("Gramoteev", "Evgeniy", 1000.0, 2),
                 "BelogayDima", new Employee("Belogay", "Dima", 200.0, 1)));
         maxSize = 10;
@@ -58,8 +59,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Employee addEmployee(String surname, String name, Double salary, Integer department) {
         Employee employee = this.addEmployee(surname, name);
-        employee.setSalary(salary);
-        employee.setDepartment(department);
+        if (salary != null)
+            employee.setSalary(salary);
+        if (department != null)
+            employee.setDepartment(department);
         return employee;
     }
 

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/department")
@@ -28,8 +29,14 @@ public class DepartmentController {
         return departmentService.getEmployeeWithMaxSalary(department);
     }
 
-    @GetMapping("/all")
-    public List<Employee> allInDepartment(@RequestParam("department") Integer department) {
+    @RequestMapping(value = "/all", params = "department")
+    public List<Employee> allInDepartment(@RequestParam(value = "department") Integer department) {
         return departmentService.getEmployeesInDepartment(department);
+    }
+
+
+    @RequestMapping("/all")
+    public Map<Integer, List<Employee>> allInDepartment() {
+        return departmentService.getAllEmployees();
     }
 }

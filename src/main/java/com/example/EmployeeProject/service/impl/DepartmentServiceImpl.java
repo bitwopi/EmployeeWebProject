@@ -38,7 +38,11 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public Map<Integer, List<Employee>> getAllEmployees() {
-
-        return null;
+        Integer[] departments = new Integer[]{1, 2, 3, 4, 5};
+        return Arrays.stream(departments)
+                .collect(Collectors
+                        .toMap(i->i, i->this.employeeService.getEmployeeList()
+                                .values().stream().filter(employee -> employee.getDepartment() == i)
+                                .collect(Collectors.toList())));
     }
 }

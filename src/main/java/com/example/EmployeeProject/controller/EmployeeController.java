@@ -18,15 +18,20 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
-    @GetMapping("/add")
+    @GetMapping(value = "/add", params = {"surname", "name"})
+    public Employee add(
+            @RequestParam("surname") String surname,
+            @RequestParam("name") String name) {
+        return employeeService.addEmployee(surname, name);
+    }
+
+    @GetMapping(value = "/add", params = {"surname", "name", "salary", "department"})
     public Employee add(
             @RequestParam("surname") String surname,
             @RequestParam("name") String name,
             @RequestParam(value = "salary", required = false) Double salary,
             @RequestParam(value = "department", required = false) Integer department
     ) {
-        if (department == null & salary == null)
-            return employeeService.addEmployee(surname, name);
         return employeeService.addEmployee(surname, name, salary, department);
     }
 
