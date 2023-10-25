@@ -29,13 +29,13 @@ public class DepartmentController {
         return departmentService.getEmployeeWithMaxSalary(department);
     }
 
-    @RequestMapping(value = "/all", params = "department")
+    @GetMapping(value = "/all", params = "department")
     public List<Employee> allInDepartment(@RequestParam(value = "department") Integer department) {
         return departmentService.getEmployeesInDepartment(department);
     }
 
 
-    @RequestMapping("/all")
+    @GetMapping("/all")
     public Map<Integer, List<Employee>> allInDepartment() {
         return departmentService.getAllEmployees();
     }
